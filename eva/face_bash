@@ -1,0 +1,7 @@
+#!/bin/bash
+PTH=./img/*
+for f in $PTH
+do
+  imgname=$(echo $f | cut -f3 -d/)
+  ./face_id $imgname
+done

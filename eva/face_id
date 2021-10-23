@@ -1,0 +1,23 @@
+#!/bin/bash
+source ~/anaconda3/etc/profile.d/conda.sh
+
+if [ "$1" = "" ]; then
+    echo "input image name"
+    exit 0 
+fi
+
+echo "CURRENT IMAGE: $1"
+imgname=$(echo $1 | cut -f1 -d.)
+
+cp ./img/$1 /Users/yufengdeng/Documents/uni/Project/fake_news/face_detection/FaceDetection-DSFD-master/eva_img/$1
+
+cd /Users/yufengdeng/Documents/uni/Project/fake_news/face_detection/FaceDetection-DSFD-master/
+conda activate DSFD
+
+python demo.py --img_root ./eva_img/$1
+
+conda activate base
+
+cp /Users/yufengdeng/Documents/uni/Project/fake_news/face_detection/FaceDetection-DSFD-master/eva_output/$imgname.out /Users/yufengdeng/Documents/uni/Project/fake_news/eva/img_out/$imgname.out
+
+cp /Users/yufengdeng/Documents/uni/Project/fake_news/face_detection/FaceDetection-DSFD-master/eval_tools/$imgname.png /Users/yufengdeng/Documents/uni/Project/fake_news/eva/img_facecheck/$imgname.png
